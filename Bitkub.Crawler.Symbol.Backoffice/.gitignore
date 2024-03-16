@@ -1,0 +1,11 @@
+﻿.vs
+
+Bitkub.Crawler.Symbol.Backoffice/bin
+Bitkub.Crawler.Symbol.Backoffice/bin/*
+Bitkub.Crawler.Symbol.Backoffice/bin/*/**
+
+Bitkub.Crawler.Symbol.Backoffice/obj
+Bitkub.Crawler.Symbol.Backoffice/obj/*
+Bitkub.Crawler.Symbol.Backoffice/obj/*/**
+
+Bitkub.Crawler.Symbol.Backoffice.sln

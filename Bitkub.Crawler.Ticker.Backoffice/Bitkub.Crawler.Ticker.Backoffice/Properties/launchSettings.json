@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Bitkub.Crawler.Ticker.Backoffice": {
+      "commandName": "Project",
+      "commandLineArgs": "--EnvironmentName=Development --Data=5"
+    }
+  }
+}

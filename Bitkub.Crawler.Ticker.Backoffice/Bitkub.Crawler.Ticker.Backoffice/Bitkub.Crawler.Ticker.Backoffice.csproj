@@ -1,0 +1,93 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>Bitkub.Crawler.Ticker.Backoffice</AssemblyName>
+    <RootNamespace>Bitkub.Crawler.Ticker.Backoffice</RootNamespace>
+  </PropertyGroup>
+
+  <Target Name="PostPublish_1" AfterTargets="Publish">
+    <PropertyGroup>
+      <BatchScript>$(MSBuildProjectDirectory)\$(PublishDir)run-script.bat</BatchScript>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="PostPublish_2" AfterTargets="Publish">
+    <Message Importance="high" Text="Create Batch File..." />
+  </Target>
+
+  <Target Name="PostPublish_3" AfterTargets="Publish">
+    <Message Importance="high" Text="Environment: Development" Condition="'$(EnvironmentName)' == '' and '$(ASPNETCORE_ENVIRONMENT)' == '' and '$(EnvironmentVariable)' == ''" />
+    <Message Importance="high" Text="Environment: $(EnvironmentName)" Condition="'$(EnvironmentName)' != ''" />
+    <Message Importance="high" Text="Environment: $(ASPNETCORE_ENVIRONMENT)" Condition="'$(ASPNETCORE_ENVIRONMENT)' != ''" />
+    <Message Importance="high" Text="Environment: $(EnvironmentVariable)" Condition="'$(EnvironmentVariable)' != ''" />
+  </Target>
+
+  <Target Name="PostPublish_4" AfterTargets="Publish">
+    <Message Importance="high" Text="Write file..." />
+    <Delete Files="$(BatchScript)" />
+    <Exec Command="ECHO @echo off &gt;&gt; $(BatchScript)" />
+    <Exec Command="ECHO REM force to drive to location path &gt;&gt; $(BatchScript)" />
+    <Exec Command="ECHO cd /D %%~dp0 &gt;&gt; $(BatchScript)" />
+    <Exec Command="ECHO REM run program &gt;&gt; $(BatchScript)" />
+    <Message Importance="high" Text="$(BatchScript) Success..." />
+  </Target>
+
+  <Target Name="PostPublish_5" AfterTargets="Publish">
+    <Exec Command="ECHO call $(MSBuildProjectName).exe --EnvironmentName=Development &gt;&gt; $(BatchScript)" Condition="'$(EnvironmentName)' == '' and '$(ASPNETCORE_ENVIRONMENT)' == '' and '$(EnvironmentVariable)' == ''" />
+
+    <Exec Command="ECHO call $(MSBuildProjectName).exe --EnvironmentName=$(EnvironmentName) &gt;&gt; $(BatchScript)" Condition="'$(EnvironmentName)' != ''" />
+
+    <Exec Command="ECHO call $(MSBuildProjectName).exe --EnvironmentName=$(ASPNETCORE_ENVIRONMENT) &gt;&gt; $(BatchScript)" Condition="'$(ASPNETCORE_ENVIRONMENT)' != ''" />
+
+    <Exec Command="ECHO call $(MSBuildProjectName).exe --EnvironmentName=$(EnvironmentVariable) &gt;&gt; $(BatchScript)" Condition="'$(EnvironmentVariable)' != ''" />
+  </Target>
+
+  <Target Name="PostPublish_6" AfterTargets="Publish">
+    <Message Importance="high" Text="Finish..." />
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gasxher.GISC\Gasxher.GISC.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appSettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="appSettings.Inhouse.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="appSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="appSettings.NonProduction.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="appSettings.Production.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="run-script.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

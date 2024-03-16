@@ -1,0 +1,11 @@
+﻿.vs
+
+Bitkub.Crawler.Ticker.Backoffice/bin
+Bitkub.Crawler.Ticker.Backoffice/bin/*
+Bitkub.Crawler.Ticker.Backoffice/bin/*/**
+
+Bitkub.Crawler.Ticker.Backoffice/obj
+Bitkub.Crawler.Ticker.Backoffice/obj/*
+Bitkub.Crawler.Ticker.Backoffice/obj/*/**
+
+Bitkub.Crawler.Ticker.Backoffice.sln

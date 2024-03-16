@@ -1,0 +1,75 @@
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GasxherGIS.Application
+{
+    public interface IAppConsoleBuilder
+    {
+        /// <summary>
+        /// กำหนด Configuration ของ Application
+        /// </summary>
+        /// <param name="configureDelegate"></param>
+        /// <returns></returns>
+        IAppConsoleBuilder ConfigureAppConfiguration(Action<IConfigurationBuilder> configureDelegate);
+
+        /// <summary>
+        /// กำหนด Configuration ของ Application และสามารถนำ ConsoleBuilderContext มาใช้งานได้
+        /// </summary>
+        /// <param name="configureDelegate"></param>
+        /// <returns></returns>
+        IAppConsoleBuilder ConfigureAppConfiguration(Action<ConsoleBuilderContext, IConfigurationBuilder> configureDelegate);
+
+
+        /// <summary>
+        /// กำหนด Injection ของ Application และสามารถนำ ConsoleBuilderContext มาใช้งานได้
+        /// </summary>
+        /// <param name="configureDelegate"></param>
+        /// <returns></returns>
+        IAppConsoleBuilder ConfigureServices(Action<ConsoleBuilderContext, IServiceCollection> configureDelegate);
+
+
+        /// <summary>
+        /// กำหนด Injection ของ Application
+        /// </summary>
+        /// <param name="configureServices"></param>
+        /// <returns></returns>
+        IAppConsoleBuilder ConfigureServices(Action<IServiceCollection> configureServices);
+
+
+        /// <summary>
+        /// Run Application เพื่อเริ่มต้นการทำงานของ Application
+        /// </summary>
+        /// <returns></returns>
+        IConsole Build();
+
+
+        /// <summary>
+        /// Run Application เพื่อเริ่มต้นการทำงานของ Application และกำหนด Configures เพื่อ Injection
+        /// </summary>
+        /// <typeparam name="TStartup"></typeparam>
+        /// <returns></returns>
+        IConsole Build<TStartup>();
+
+
+        /// <summary>
+        /// Get the setting value from the configuration.
+        /// </summary>
+        /// <param name="key">The key of the setting to look up.</param>
+        /// <returns>The value the setting currently contains.</returns>
+        string GetSetting(string key);
+
+
+        /// <summary>
+        /// Add or replace a setting in the configuration.
+        /// </summary>
+        /// <param name="key">The key of the setting to add or replace.</param>
+        /// <param name="value">The value of the setting to add or replace.</param>
+        /// <returns>The <see cref="IAppConsoleBuilder"/>.</returns>
+        IAppConsoleBuilder UseSetting(string key, string value);
+    }
+}

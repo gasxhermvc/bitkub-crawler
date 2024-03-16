@@ -1,0 +1,71 @@
+﻿using GasxherGIS.Application.Internal;
+using GasxherGIS.Standards.Environment;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GasxherGIS.Application
+{
+    public class AppConsoleBuilder : IAppConsoleBuilder
+    {
+        private readonly AppEnvironment _appEnvironment;
+        private readonly IConfiguration _configuration;
+        private readonly ConsoleBuilderContext _context;
+
+
+        private AppConsoleOptions? _options;
+
+
+        private Action<ConsoleBuilderContext, IServiceCollection>? _configureServiceDelegate;
+        private Action<ConsoleBuilderContext, IConfigurationBuilder>? _configureAppConfigurationBuilderDelegate;
+
+        public AppConsoleBuilder()
+        {
+            //_appEnvironment = new AppEnvironment();
+        }
+
+        public IConsole Build()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IConsole Build<TStartup>()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAppConsoleBuilder ConfigureAppConfiguration(Action<IConfigurationBuilder> configureDelegate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAppConsoleBuilder ConfigureAppConfiguration(Action<ConsoleBuilderContext, IConfigurationBuilder> configureDelegate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAppConsoleBuilder ConfigureServices(Action<ConsoleBuilderContext, IServiceCollection> configureDelegate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAppConsoleBuilder ConfigureServices(Action<IServiceCollection> configureServices)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetSetting(string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAppConsoleBuilder UseSetting(string key, string value)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
